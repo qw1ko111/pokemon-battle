@@ -176,16 +176,16 @@ const Battle = ({ onGameEnd }) => {
          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-blue-900 opacity-50 -z-10"></div>
          
          <PokemonCard pokemon={playerPokemon} isPlayer={true} currentHp={playerHp} animationClass={playerAnim} />
-         <div className="text-4xl font-bold text-white/20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">VS</div>
+         <div className="text-2xl md:text-4xl font-bold text-white/20 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0">VS</div>
          <PokemonCard pokemon={enemyPokemon} isPlayer={false} currentHp={enemyHp} animationClass={enemyAnim} />
       </div>
 
       {/* Control Panel */}
-      <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 shadow-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="bg-gray-800 rounded-2xl p-3 md:p-6 border border-gray-700 shadow-2xl flex-1 flex flex-col min-h-0">
+        <div className="flex flex-col gap-3 h-full">
           
           {/* Battle Log */}
-          <div className="bg-black/40 rounded-xl p-4 h-40 overflow-y-auto font-mono text-sm border border-gray-600 shadow-inner">
+          <div className="bg-black/40 rounded-xl p-3 h-24 md:h-32 shrink-0 overflow-y-auto font-mono text-xs md:text-sm border border-gray-600 shadow-inner">
             {battleLog.map((log, i) => (
               <div key={i} className={`mb-1 ${i === 0 ? 'text-yellow-400 font-bold' : 'text-gray-400'}`}>
                 {i === 0 ? '> ' : ''}{log}
@@ -194,30 +194,30 @@ const Battle = ({ onGameEnd }) => {
           </div>
 
           {/* Moves */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-2 md:gap-3 flex-1 min-h-0">
             {playerPokemon.moves.map((move, i) => (
               <button
                 key={i}
                 disabled={!isPlayerTurn}
                 onClick={() => handleTurn(i)}
                 className={`
-                  relative overflow-hidden p-4 rounded-xl font-bold text-left transition-all
+                  relative overflow-hidden p-2 md:p-4 rounded-xl font-bold text-left transition-all flex flex-col justify-center
                   ${isPlayerTurn 
-                    ? 'bg-blue-600 hover:bg-blue-500 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20 active:scale-95' 
+                    ? 'bg-blue-600 hover:bg-blue-500 hover:scale-105 active:scale-95' 
                     : 'bg-gray-700 opacity-50 cursor-not-allowed'}
                 `}
               >
-                <div className="flex justify-between items-center z-10 relative">
-                  <span>{move.name}</span>
-                  <span className="text-xs opacity-70">{move.type}</span>
+                <div className="flex justify-between items-center z-10 relative w-full">
+                  <span className="text-sm md:text-base truncate">{move.name}</span>
+                  <span className="text-[10px] md:text-xs opacity-70 whitespace-nowrap ml-1">{move.type}</span>
                 </div>
-                <div className="text-xs font-normal opacity-60 mt-1">威力: {move.power}</div>
+                <div className="text-[10px] md:text-xs font-normal opacity-60 mt-0.5">威力: {move.power}</div>
               </button>
             ))}
           </div>
         </div>
         
-        <div className="mt-4 text-center text-gray-500 text-xs">
+        <div className="mt-2 text-center text-gray-500 text-[10px] md:text-xs shrink-0">
           {isPlayerTurn ? "轮到你了！请选择一个招式。" : `等待 ${enemyPokemon.name} 行动...`}
         </div>
       </div>
